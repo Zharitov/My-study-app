@@ -8,7 +8,7 @@ import kotlin.random.Random
 
 class GameLevel : AppCompatActivity() {
 
-    val arrayOne = arrayOf(
+    private val arrayOne = arrayOf(
         R.drawable.edible1,
         R.drawable.inedible1,
         R.drawable.edible2,
@@ -51,12 +51,16 @@ class GameLevel : AppCompatActivity() {
     //Вывод картинки в правую часть
         val right:ImageView=findViewById(R.id.img_right)
         var rightRand = Random.nextInt(arrayOneSize)
-        val rightStrong:Int = strong[rightRand]
+        var rightStrong:Int = strong[rightRand]
         right.setImageResource(arrayOne[rightRand])
 
-        while (rightStrong==leftStrong) {
-            rightRand = Random.nextInt(arrayOneSize)
-        }
+      while (rightStrong==leftStrong) {
+          rightRand = Random.nextInt(arrayOneSize)
+          rightStrong = strong[rightRand]
+          right.setImageResource(arrayOne[rightRand])
+       }
+
+
 
     }
 }
