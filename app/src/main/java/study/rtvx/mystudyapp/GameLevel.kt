@@ -1,7 +1,11 @@
 package study.rtvx.mystudyapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.Array
 import kotlin.random.Random
@@ -38,14 +42,18 @@ class GameLevel : AppCompatActivity() {
         private val arrayOneSize = arrayOne.size
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_level)
 
+        var point:Int = 0
+        var score: TextView = findViewById(R.id.level_score)
+
     //Вывод картинки в левую часть
         val left:ImageView=findViewById(R.id.img_left)
-        val leftRand = Random.nextInt(arrayOneSize)
-        val leftStrong:Int = strong[leftRand]
+        var leftRand = Random.nextInt(arrayOneSize)
+        var leftStrong:Int = strong[leftRand]
         left.setImageResource(arrayOne[leftRand])
 
     //Вывод картинки в правую часть
@@ -60,7 +68,78 @@ class GameLevel : AppCompatActivity() {
           right.setImageResource(arrayOne[rightRand])
        }
 
+      //Нажатие на левую картинку
+        left.setOnClickListener{
+            if (leftStrong>rightStrong){
+                point += 1
+                score.text = "$point"
+            } else {
+                if (point==0){
+                    point=0}
+                else {
+                    point -= 1
+                    score.text = "$point" }
+                    }
+            leftRand = Random.nextInt(arrayOneSize)
+            leftStrong = strong[leftRand]
+            left.setImageResource(arrayOne[leftRand])
+            rightRand = Random.nextInt(arrayOneSize)
+            rightStrong = strong[rightRand]
+            right.setImageResource(arrayOne[rightRand])
+            while (rightStrong==leftStrong) {
+                rightRand = Random.nextInt(arrayOneSize)
+                rightStrong = strong[rightRand]
+                right.setImageResource(arrayOne[rightRand])
+            }
+
+            if (point==10){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                val text = "Поздравляю! Вы прошли игру!"
+                val duration = Toast.LENGTH_SHORT
+                val toast = Toast.makeText(applicationContext, text, duration)
+                toast.show()
+            }
+        }
+        //Нажатие на правую кнопку
+        right.setOnClickListener{
+            if (leftStrong<rightStrong){
+                point += 1
+                score.text = "$point"
+            } else {
+                if (point==0){
+                    point=0}
+                else {
+                    point -= 1
+                    score.text = "$point" }
+            }
+            leftRand = Random.nextInt(arrayOneSize)
+            leftStrong = strong[leftRand]
+            left.setImageResource(arrayOne[leftRand])
+            rightRand = Random.nextInt(arrayOneSize)
+            rightStrong = strong[rightRand]
+            right.setImageResource(arrayOne[rightRand])
+            while (rightStrong==leftStrong) {
+                rightRand = Random.nextInt(arrayOneSize)
+                rightStrong = strong[rightRand]
+                right.setImageResource(arrayOne[rightRand])
+            }
+            if (point==10){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                val text = "Поздравляю! Вы прошли игру!"
+                val duration = Toast.LENGTH_SHORT
+                val toast = Toast.makeText(applicationContext, text, duration)
+                toast.show()
+            }
+        }
+
+
+
+
 
 
     }
-}
+    }
+
+

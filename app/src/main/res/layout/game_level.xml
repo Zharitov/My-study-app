@@ -24,7 +24,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@+id/level_background"
-        tools:layout_editor_absoluteX="20dp" />
+        tools:layout_editor_absoluteX="20dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/score"
@@ -44,7 +45,7 @@
         android:layout_height="22dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
-        android:text="1"
+        android:text="0"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/score"
